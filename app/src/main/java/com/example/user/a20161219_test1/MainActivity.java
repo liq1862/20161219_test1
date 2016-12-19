@@ -8,26 +8,41 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     NotificationManager nm;
-
+    Intent it;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        it = new Intent(MainActivity.this, MyService.class);
     }
 
-    public void clickShow(View v){
-        Intent it = new Intent(MainActivity.this,Main2Activity.class);
-        PendingIntent pi = PendingIntent.getActivity(MainActivity.this,123,it,PendingIntent.FLAG_UPDATE_CURRENT);
+    public void clickShow(View v)
+    {
+        Intent it = new Intent(MainActivity.this, Main2Activity.class);
+        PendingIntent pi = PendingIntent.getActivity(MainActivity.this,
+                123, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification.Builder builder = new Notification.Builder(MainActivity.this);
-        builder.setContentTitle("標題");
-        builder.setContentText("內容");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentIntent(pi);
+        builder.setContentTitle("這是標題")
+                .setContentText("這裡是內容")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pi);
         Notification notification = builder.build();
-        nm.notify(1,notification);
+        nm.notify(1, notification);
+    }
+
+    public void clickService(View v)
+    {
+        startService(it);
+    }
+
+    public void clickStop(View v)
+    {
+        stopService(it);
     }
 }
