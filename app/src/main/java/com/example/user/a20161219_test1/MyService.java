@@ -38,8 +38,6 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("SERV", "This is onStartCommand");
-
-
         return super.onStartCommand(intent, flags, startId);
     }
 
